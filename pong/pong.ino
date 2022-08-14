@@ -30,6 +30,8 @@ typedef struct struct_message_host {
   float ball_pos_x;
   float ball_pos_y;
   float left_player_height;
+  int left_player_score;
+  int right_player_score;
 } struct_message_host;
 
 struct_message_host hostData;
@@ -203,6 +205,8 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
         left_player.height = hostData.left_player_height;
         ball.pos_x = hostData.ball_pos_x;
         ball.pos_y = hostData.ball_pos_y;
+        left_player_score = hostData.left_player_score;
+        right_player_score = hostData.right_player_score;
     }
 }
 
@@ -210,6 +214,8 @@ void hostSendPackage() {
   hostData.ball_pos_x = ball.pos_x;
   hostData.ball_pos_y = ball.pos_y;
   hostData.left_player_height = left_player.height;
+  hostData.left_player_score = left_player_score;
+  hostData.right_player_score = right_player_score;
   esp_now_send(joinMACAddress, (uint8_t *) &hostData, sizeof(hostData));
 }
 
